@@ -20,3 +20,7 @@ Self-hosted AI automation infrastructure on a Contabo VPS, replacing paid/trial-
 ## Why
 
 Built to move off cloud free-tier trials and subscription limits onto infrastructure I fully control, manage, and understand end to end — from provisioning through DNS, HTTPS, and container orchestration.
+
+## Note
+
+This repo documents the infrastructure and setup process rather than hosting code — the actual configs (docker-compose files, environment variables) live on the server itself and aren't published here, since they'd include credentials and internal networking details.
