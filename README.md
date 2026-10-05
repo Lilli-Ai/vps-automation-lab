@@ -8,9 +8,9 @@ Self-hosted AI automation infrastructure on a Contabo VPS, replacing paid/trial-
 - **Flowise** — [flowise.lilia.am](https://flowise.lilia.am) — visual LLM agent builder
 - **Open WebUI** — [chat.lilia.am](https://chat.lilia.am) — self-hosted chat interface, powering a bilingual (RU/EN) voice-in/voice-out AI English tutor (Whisper STT, Groq LLM, Kokoro TTS)
 - **Kokoro TTS** — self-hosted text-to-speech (kokoro-fastapi), used by Open WebUI over an internal Docker network; test UI behind Basic Auth
-- **Chatwoot** — [omni.lilia.am](https://omni.lilia.am) — self-hosted omnichannel inbox, the core of my final course project *AI Travel Concierge: From Message to Qualified Lead* (in progress)
+- **Chatwoot** — [omni.lilia.am](https://omni.lilia.am) — self-hosted omnichannel inbox powering *AI Travel Concierge: From Message to Qualified Lead*, a project I'm currently building
 
-## AI Travel Concierge (final project, in progress)
+## AI Travel Concierge (in progress)
 
 - Chatwoot deployed from scratch with Docker Compose (PostgreSQL with pgvector, Redis, Sidekiq), behind Nginx + HTTPS
 - Channels working: website chat widget on a demo travel-agency page and a Telegram bot
