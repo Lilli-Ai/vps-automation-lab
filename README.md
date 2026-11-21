@@ -2,6 +2,14 @@
 
 A self-hosted AI automation server I set up, secure and maintain end to end: Docker services behind Nginx and HTTPS, closed firewall, key-only SSH, and AI apps running 24/7 on one Contabo VPS.
 
+## Highlights
+
+- 10 containers running 24/7 on one VPS, all restarting automatically after reboot
+- Only ports 22, 80 and 443 open; every service reachable only through Nginx + HTTPS or SSH with a key
+- 3 real security issues found and fixed: Docker bypassing ufw, SSH password login left on by cloud-init, nginx2root
+- Live uptime of all public services: [status page](https://stats.uptimerobot.com/lEI3HjdPhI)
+- Every change documented in a build log with commands, results and lessons
+
 ## Architecture
 
 ```mermaid
@@ -15,7 +23,9 @@ flowchart LR
     N --> D[Chatwoot]
     N --> K[Kokoro TTS + Basic Auth]
     N --> O[NocoDB]
+    N --> T[travel.lilia.am demo site]
     S -. SSH tunnel .-> V[Startup Idea Validator]
+    T -. chat widget .-> D
     C --- K
     A --- P[(PostgreSQL)]
     D --- P
@@ -31,6 +41,7 @@ All containers listen only on `127.0.0.1`. The only way in from outside is Nginx
 - Open WebUI: [chat.lilia.am](https://chat.lilia.am/), self-hosted chat interface powering a bilingual (RU/EN) voice-in/voice-out AI English tutor (Whisper STT, Groq LLM, Kokoro TTS)
 - Kokoro TTS: self-hosted text-to-speech (kokoro-fastapi), used by Open WebUI over an internal Docker network; test UI behind Basic Auth
 - Chatwoot: [omni.lilia.am](https://omni.lilia.am/), self-hosted omnichannel inbox powering Omnichannel AI Lead Automation
+- Demo travel agency site: [travel.lilia.am](https://travel.lilia.am/), website with the Chatwoot chat widget, used as a client channel of Omnichannel AI Lead Automation
 - NocoDB: [nocodb.lilia.am](https://nocodb.lilia.am/), lead board for the managers of Omnichannel AI Lead Automation, on top of the leads PostgreSQL database
 - Startup Idea Validator: agentic RAG app on a local LLM (Ollama in Docker, Qwen 2.5) with a Qdrant Cloud vector database, Gradio UI running as a systemd service with autostart, reachable only through an SSH tunnel
 
@@ -47,7 +58,7 @@ Details: [omnichannel-ai-presentation](https://github.com/Lilli-Ai/omnichannel-a
 - Reverse proxy: Nginx
 - HTTPS: Let's Encrypt / Certbot, auto-renewing certificates
 - Databases: PostgreSQL 16 (pgvector), separate databases and users per project
-- Monitoring: UptimeRobot with email alerts
+- Monitoring: UptimeRobot with email alerts, [public status page](https://stats.uptimerobot.com/lEI3HjdPhI)
 - Security: ufw firewall (22, 80, 443 only, default deny incoming), SSH key-only login, fail2ban against SSH brute force, all container ports bound to `127.0.0.1`, secrets in env files readable only by root, Basic Auth on the Kokoro TTS test UI
 
 ## Operations
