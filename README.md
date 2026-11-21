@@ -26,6 +26,8 @@ flowchart LR
     N --> T[travel.lilia.am demo site]
     S -. SSH tunnel .-> V[Startup Idea Validator]
     T -. chat widget .-> D
+    D -. webhook .-> A
+    V --- L[Ollama local LLM]
     C --- K
     A --- P[(PostgreSQL)]
     D --- P
@@ -54,11 +56,11 @@ Details: [omnichannel-ai-presentation](https://github.com/Lilli-Ai/omnichannel-a
 ## Stack
 
 - OS: Ubuntu 24.04.4 LTS
-- Containers: Docker (`docker run` with named volumes, Docker Compose for Chatwoot), 10 containers, all set to restart automatically
+- Containers: Docker (`docker run` with named volumes, Docker Compose for Chatwoot)
 - Reverse proxy: Nginx
 - HTTPS: Let's Encrypt / Certbot, auto-renewing certificates
 - Databases: PostgreSQL 16 (pgvector), separate databases and users per project
-- Monitoring: UptimeRobot with email alerts, [public status page](https://stats.uptimerobot.com/lEI3HjdPhI)
+- Monitoring: UptimeRobot with email alerts
 - Security: ufw firewall (22, 80, 443 only, default deny incoming), SSH key-only login, fail2ban against SSH brute force, all container ports bound to `127.0.0.1`, secrets in env files readable only by root, Basic Auth on the Kokoro TTS test UI
 
 ## Operations
@@ -66,7 +68,6 @@ Details: [omnichannel-ai-presentation](https://github.com/Lilli-Ai/omnichannel-a
 - Security updates: package versions checked against Ubuntu security notices, services restarted after updates, config tested with `nginx -t`
 - Reboot tested: after a kernel update all 10 containers and the systemd service came back on their own
 - Database backups: `pg_dump` of the Chatwoot and leads databases, copied off the server
-- Every change is recorded in a build log with the commands, the result and the lesson
 
 ## Security fixes
 
